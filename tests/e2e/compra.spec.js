@@ -1,6 +1,9 @@
-
 const { test, expect } = require('@playwright/test');
-const { generarCredenciales, crearUsuario, loginUsuario } = require('../helpers');
+const {
+  generarCredenciales,
+  crearUsuario,
+  loginUsuario,
+} = require('../helpers');
 
 test.describe.configure({ mode: 'serial' });
 
@@ -55,7 +58,7 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
     // Inyectar cookies de sesión antes de navegar (más confiable que login por modal en headless)
     await page.context().addCookies([
       { name: 'tokenp', value: authToken, domain: 'demoblaze.com', path: '/' },
-      { name: 'user',   value: username,  domain: 'demoblaze.com', path: '/' },
+      { name: 'user', value: username, domain: 'demoblaze.com', path: '/' },
     ]);
 
     // Navegar a la página principal ya autenticado
@@ -75,7 +78,9 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
 
     // Configurar listener para la respuesta POST del carrito ANTES del click
     const responsePromise = page.waitForResponse(
-      (response) => response.url().includes('https://api.demoblaze.com/addtocart') && response.request().method() === 'POST'
+      (response) =>
+        response.url().includes('https://api.demoblaze.com/addtocart') &&
+        response.request().method() === 'POST',
     );
 
     // Hacer clic en el botón "Add to cart"
@@ -94,7 +99,7 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
     // Inyectar cookies de sesión antes de navegar
     await page.context().addCookies([
       { name: 'tokenp', value: authToken, domain: 'demoblaze.com', path: '/' },
-      { name: 'user',   value: username,  domain: 'demoblaze.com', path: '/' },
+      { name: 'user', value: username, domain: 'demoblaze.com', path: '/' },
     ]);
 
     // Navegar a la página principal ya autenticado
@@ -114,7 +119,9 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
     // Agregar al carrito y esperar la respuesta de la API
     const addToCartButton = page.getByRole('link', { name: 'Add to cart' });
     const addCartResponse = page.waitForResponse(
-      (response) => response.url().includes('addtocart') && response.request().method() === 'POST'
+      (response) =>
+        response.url().includes('addtocart') &&
+        response.request().method() === 'POST',
     );
     await addToCartButton.click();
     await addCartResponse;
@@ -122,7 +129,9 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
     // Hacer clic en el botón "Cart" del menú superior
     // Esperar la respuesta del API de viewcart antes de buscar el producto
     const cartViewResponse = page.waitForResponse(
-      (response) => response.url().includes('viewcart') && response.request().method() === 'POST'
+      (response) =>
+        response.url().includes('viewcart') &&
+        response.request().method() === 'POST',
     );
     const cartButton = page.locator('#cartur');
     await expect(cartButton).toBeVisible();
@@ -133,7 +142,10 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
     await page.waitForLoadState('domcontentloaded');
 
     // Validar que la tabla de productos contenga el producto
-    const productRow = page.locator('#tbodyid tr').filter({ hasText: 'Samsung galaxy s6' }).first();
+    const productRow = page
+      .locator('#tbodyid tr')
+      .filter({ hasText: 'Samsung galaxy s6' })
+      .first();
     await expect(productRow).toBeVisible({ timeout: 10000 });
 
     console.log('TC05: Producto validado en el carrito');

@@ -1,5 +1,9 @@
 const { test, expect } = require('@playwright/test');
-const { generarCredenciales, crearUsuario, loginUsuario } = require('../helpers');
+const {
+  generarCredenciales,
+  crearUsuario,
+  loginUsuario,
+} = require('../helpers');
 
 // Ejecutar tests de forma secuencial para garantizar que TC01 corra antes que TC02
 test.describe.configure({ mode: 'serial' });

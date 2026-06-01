@@ -112,13 +112,12 @@ async function loginUsuario(request, username, password) {
   };
 }
 
-module.exports = { 
-  API, 
-  WEB, 
+module.exports = {
+  API,
+  WEB,
   generarUsuario,
   generarCredenciales,
-  crearUsuarioPorAPI, 
+  crearUsuarioPorAPI,
   crearUsuario,
   loginUsuario,
 };
-

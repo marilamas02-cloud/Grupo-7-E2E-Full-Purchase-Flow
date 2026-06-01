@@ -10,11 +10,11 @@ Suite de tests automatizados sobre **DemoBlaze** usando Playwright.
 
 > Completen con los nombres de su grupo:
 
-- Nombre Apellido
-- Nombre Apellido
-- Nombre Apellido
+- Marisol Lamas
+- Melisa Agustina Araoz
+- Rocio del Milagro Vera Lopez
 
-**Grupo N - Seccion asignada:** (ej: Cart Management)
+**Grupo 7 - Seccion asignada:*E2E-Full-Purchase-Flow* 
 
 ---
 

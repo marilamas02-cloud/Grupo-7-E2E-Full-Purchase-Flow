@@ -1,0 +1,24 @@
+{
+  "name": "playwright-bootcamp",
+  "version": "1.0.0",
+  "description": "Suite de tests automatizados sobre DemoBlaze - QA Automation Bootcamp",
+  "scripts": {
+    "test": "playwright test",
+    "test:api": "playwright test tests/api",
+    "test:ui": "playwright test tests/ui",
+    "test:e2e": "playwright test tests/e2e",
+    "test:headed": "playwright test --headed --project=chromium",
+    "report": "playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "qa",
+    "automation",
+    "testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}

@@ -13,6 +13,7 @@ const { test, expect } = require('@playwright/test');
 
 test('La pagina principal carga correctamente', async ({ page }) => {
   await page.goto('/');
+  await page.waitForSelector('.card-title', { timeout: 15000 });
 
   // Verificar el titulo de la pagina
   await expect(page).toHaveTitle(/STORE/);
@@ -29,7 +30,7 @@ test('Navegar a la categoria Phones', async ({ page }) => {
   await page.getByRole('link', { name: 'Phones' }).click();
 
   // Esperar a que carguen los productos de la categoria
-  await page.waitForTimeout(1000);
+  await page.waitForSelector('.card-title', { timeout: 15000 });
 
   // Verificar que hay productos visibles
   const productos = page.locator('.card-title');
@@ -38,6 +39,7 @@ test('Navegar a la categoria Phones', async ({ page }) => {
 
 test('Abrir el detalle de un producto', async ({ page }) => {
   await page.goto('/');
+  await page.waitForSelector('.card-title', { timeout: 15000 });
 
   // Click en el primer producto
   await page.locator('.card-title a').first().click();

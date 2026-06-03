@@ -1,34 +1,57 @@
-/**
- * Helpers y constantes compartidas.
- * Importa esto en tus tests para no repetir codigo y usar los mismos valores.
- *
- * Ejemplo de uso:
- *   const { API, generarUsuario } = require('./helpers');
- */
+const { expect } = require('@playwright/test');
 
-// URLs base
 const API = 'https://api.demoblaze.com';
 const WEB = 'https://www.demoblaze.com';
 
-/**
- * Genera un usuario unico usando la fecha actual.
- * Asi nunca choca con "usuario ya existe".
- */
-function generarUsuario() {
+async function generarCredenciales() {
   return {
-    username: `alumno_${Date.now()}`,
-    password: 'bootcamp123',
+    username: `user_${Date.now()}`,
+    password: 'Password123',
   };
 }
 
-/**
- * Crea un usuario por API. Devuelve las credenciales usadas.
- * Util para el setup de tests E2E.
- */
 async function crearUsuarioPorAPI(request) {
-  const usuario = generarUsuario();
-  await request.post(`${API}/signup`, { data: usuario });
-  return usuario;
+  const credenciales = await generarCredenciales();
+  await request.post(`${API}/signup`, { data: credenciales });
+  return credenciales;
 }
 
-module.exports = { API, WEB, generarUsuario, crearUsuarioPorAPI };
+async function crearUsuario(request, username, password) {
+  const response = await request.post(`${API}/signup`, {
+    data: { username, password },
+  });
+
+  expect(response.status()).toBe(200);
+  console.log(`✓ Usuario registrado: ${username}`);
+
+  return { username, password, status: response.status() };
+}
+
+async function loginUsuario(request, username, password) {
+  const response = await request.post(`${API}/login`, {
+    data: { username, password },
+  });
+
+  expect(response.status()).toBe(200);
+
+  const responseText = await response.text();
+
+  if (!responseText.includes('Auth_token:')) {
+    throw new Error('No se obtuvo el Auth_token en la respuesta');
+  }
+
+  const authToken = responseText.replace('Auth_token: ', '').trim();
+  expect(authToken).toBeTruthy();
+  console.log(`✓ Login exitoso. Token: ${authToken}`);
+
+  return { username, password, authToken, status: response.status() };
+}
+
+module.exports = {
+  API,
+  WEB,
+  generarCredenciales,
+  crearUsuarioPorAPI,
+  crearUsuario,
+  loginUsuario,
+};

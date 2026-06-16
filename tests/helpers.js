@@ -40,7 +40,12 @@ async function loginUsuario(request, username, password) {
     throw new Error('No se obtuvo el Auth_token en la respuesta');
   }
 
-  const authToken = responseText.replace('Auth_token: ', '').trim();
+  //const authToken = responseText.replace('Auth_token: ', '').trim();
+  const authToken = responseText
+    .replace('Auth_token: ', '')
+    .trim()
+    .replace(/"/g, '');
+
   expect(authToken).toBeTruthy();
   console.log(`✓ Login exitoso. Token: ${authToken}`);
 

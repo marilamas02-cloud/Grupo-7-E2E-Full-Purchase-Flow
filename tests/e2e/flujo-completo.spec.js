@@ -35,7 +35,6 @@ test('Flujo completo de compra E2E', async ({ request, page }) => {
   });
 
   await test.step('TC04 - Agregar producto al carrito', async () => {
-    // Se inyecta la sesión una sola vez — persiste en todos los steps siguientes
     await page.context().addCookies([
       { name: 'tokenp', value: authToken, domain: 'demoblaze.com', path: '/' },
       { name: 'user', value: username, domain: 'demoblaze.com', path: '/' },
@@ -49,7 +48,6 @@ test('Flujo completo de compra E2E', async ({ request, page }) => {
         response.request().method() === 'POST',
     );
 
-    // La página ya está en el producto desde TC03
     await page.getByRole('link', { name: 'Add to cart' }).click();
 
     const response = await responsePromise;
@@ -78,7 +76,6 @@ test('Flujo completo de compra E2E', async ({ request, page }) => {
   });
 
   await test.step('TC06 - Completar formulario de checkout', async () => {
-    // La página ya está en el carrito desde TC05
     const placeOrderButton = page.locator('button:has-text("Place Order")');
     await expect(placeOrderButton).toBeVisible({ timeout: 15000 });
     await expect(placeOrderButton).toBeEnabled();
@@ -96,12 +93,10 @@ test('Flujo completo de compra E2E', async ({ request, page }) => {
 
     await page.locator('button:has-text("Purchase")').click();
 
-    // Esperar que aparezca la confirmación antes de pasar a TC07
     await page.waitForSelector('.sweet-alert h2', { timeout: 15000 });
   });
 
   await test.step('TC07 - Validar confirmación de compra', async () => {
-    // La página ya muestra la confirmación desde TC06
     const successTitle = page.locator('.sweet-alert h2');
     await expect(successTitle).toBeVisible({ timeout: 15000 });
     await expect(successTitle).toContainText(/Gracias por su compra!|Thank you for your purchase!/);

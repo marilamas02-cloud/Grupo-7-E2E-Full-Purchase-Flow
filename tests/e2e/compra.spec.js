@@ -44,7 +44,6 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
   test('TC05 - Validar carrito con producto correcto', async ({ request, page }) => {
     await crearSesion(request, page);
 
-    // Setup: agrega el producto para poder validarlo
     page.on('dialog', async (dialog) => await dialog.accept());
 
     const addToCartResponse = page.waitForResponse(
@@ -60,7 +59,6 @@ test.describe('GRUPO 7 — E2E Full Purchase Flow', () => {
     await page.getByRole('link', { name: 'Add to cart' }).click();
     await addToCartResponse;
 
-    // Validar que el producto está en el carrito
     const cartViewResponse = page.waitForResponse(
       (response) =>
         response.url().includes('viewcart') &&

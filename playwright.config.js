@@ -14,8 +14,11 @@ module.exports = defineConfig({
   // Corre los tests en paralelo
   fullyParallel: true,
 
-  // Cantidad de reintentos si un test falla
-  retries: 0,
+  // Reintentos para tests contra APIs externas inestables
+  retries: 1,
+
+  // Limita workers para no sobrecargar el servidor de DemoBlaze
+  workers: 2,
 
   // Reporter: genera un reporte HTML lindo
   reporter: 'html',

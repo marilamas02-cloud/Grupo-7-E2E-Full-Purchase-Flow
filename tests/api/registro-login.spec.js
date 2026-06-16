@@ -9,7 +9,6 @@ test.describe('GRUPO 7 — API Tests', () => {
   });
 
   test('TC02 - Login via API con usuario creado', async ({ request }) => {
-    // Setup: crea su propio usuario para no depender de TC01
     const { username, password } = await generarCredenciales();
     await crearUsuario(request, username, password);
 

@@ -12,9 +12,9 @@ Suite de tests automatizados sobre **DemoBlaze** usando Playwright.
 
 - Marisol Lamas
 - Melisa Agustina Araoz
-- Rocio del Milagro Vera Lopez
+- Rocio Macarena del Milagro Vera Lopez
 
-**Grupo 7 - Seccion asignada:*E2E-Full-Purchase-Flow* 
+\**Grupo 7 - Seccion asignada:*E2E-Full-Purchase-Flow\*
 
 ---
 

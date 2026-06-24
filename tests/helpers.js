@@ -6,7 +6,7 @@ const WEB = 'https://www.demoblaze.com';
 async function generarCredenciales() {
   return {
     username: `user_${Date.now()}`,
-    password: 'Password123',
+    password: btoa('bootcamp123'),
   };
 }
 
